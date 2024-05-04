@@ -14,6 +14,47 @@ This section contains a general overview of topics that you will learn in this l
 - Describe approaches for structuring routes and controllers.
 - Set up URL endpoints.
 
+### Routes
+
+Routes act as connectors between client requests and controller actions, establishing the URLs and HTTP methods (GET, POST, PUT, DELETE) through which users interact with various features of the application. Each route usually represents a distinct resource or operation within the system, helping with organized and predictable communication between the client and the server.
+
+Example
+Consider a simple recipe management application with the following routes:
+
+- GET /recipes: Retrieves a list of all recipes.
+- POST /recipes: Creates a new recipe.
+- GET /recipes/:id: Retrieves details of a specific recipe.
+- PUT /recipes/:id: Updates an existing recipe.
+- DELETE /recipes/:id: Deletes a recipe.
+
+When a user sends a GET request to /recipes, the application's router directs the request to the corresponding controller action responsible for fetching all recipes from the database. Similarly, when a user submits a POST request to /recipes, the router invokes the controller action to create a new recipe.
+
+### Controllers
+
+Controllers capture the application logic and handle the processing of incoming requests. They organize the interaction between models (data layer) and views (presentation layer), direct the appropriate response to send back to the client.
+
+Example
+Using our recipe management application example from above:
+
+```javascript
+
+// Controller for handling recipe-related actions
+const Recipe = require('../models/Recipe');
+
+// Retrieve all recipes
+exports.getAllRecipes = async (req, res) => {
+    try {
+        const recipes = await Recipe.find();
+        res.json(recipes);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+```
+
+For this example, the getAllRecipes function handles the retrieval of all recipes.
+
 ### Assignment
 
 <div class="lesson-content__panel" markdown="1">
